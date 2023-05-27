@@ -1,11 +1,5 @@
 function Rounds() {
-  let num = prompt("How many rounds would you like to play");
-  num -= "0";
-  if (typeof num == "number") {
-    return num;
-  } else {
-    return Rounds;
-  }
+  return prompt("How many rounds would you like to play");
 }
 
 function getComputerChoice() {
