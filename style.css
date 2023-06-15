@@ -1,0 +1,13 @@
+body {
+  background: #36454f;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+.result {
+  text-align: center;
+}
+.winner {
+  text-align: center;
+}

@@ -1,19 +1,28 @@
-function Rounds() {
-  return prompt("How many rounds would you like to play");
-}
+pChoice = document.querySelectorAll(".pChoice");
+result = document.querySelector(".result");
+let playerWins = 0;
+let computerWins = 0;
+winner = document.querySelector(".winner");
+pChoice.forEach((choice) =>
+  choice.addEventListener("click", (event) => {
+    // Get the text from the clicked element, convert to lowercase
+    const playerChoice = event.target.textContent.toLowerCase();
 
+    // Call the playRound function
+    result.textContent = playRound(getComputerChoice(), playerChoice);
+
+    winCheck();
+  })
+);
 function getComputerChoice() {
   let choice = Math.floor(Math.random() * 3) + 1;
   switch (choice) {
     case 1:
       return "rock";
-      break;
     case 2:
       return "paper";
-      break;
     case 3:
       return "scissors";
-      break;
   }
 }
 
@@ -23,11 +32,12 @@ function playRound(computerChoice, playerChoice) {
       switch (computerChoice) {
         case "rock":
           return "Tie!";
-          break;
         case "paper":
+          computerWins++;
           return `you Lose! ${computerChoice} beats ${playerChoice}`;
           break;
         case "scissors":
+          playerWins++;
           return `you Win! ${playerChoice} beats ${computerChoice}`;
           break;
       }
@@ -35,12 +45,13 @@ function playRound(computerChoice, playerChoice) {
     case "paper":
       switch (computerChoice) {
         case "rock":
+          playerWins++;
           return `you Win! ${playerChoice} beats ${computerChoice}`;
           break;
         case "paper":
           return "Tie!";
-          break;
         case "scissors":
+          computerWins++;
           return `you Lose! ${computerChoice} beats ${playerChoice}`;
           break;
       }
@@ -48,26 +59,30 @@ function playRound(computerChoice, playerChoice) {
     case "scissors":
       switch (computerChoice) {
         case "rock":
+          computerWins++;
           return `you Lose! ${computerChoice} beats ${playerChoice}`;
           break;
         case "paper":
+          playerWins++;
           return `you Win! ${playerChoice} beats ${computerChoice}`;
           break;
         case "scissors":
           return "Tie!";
-          break;
       }
       break;
     default:
       return "Please answer Rock, Paper, or Scissors";
   }
 }
-
-function play(playRounds) {
-  for (let i = 0; i < +playRounds; i++) {
-    let getPlayerChoice = prompt("Rock, Paper, or Scissors?").toLowerCase();
-    console.log(playRound(getComputerChoice(), getPlayerChoice));
+function winCheck() {
+  if (computerWins == 5) {
+    winner.textContent = "You Lose!";
+    computerWins = 0;
+    playerWins = 0;
+  }
+  if (playerWins == 5) {
+    winner.textContent = "You Win!";
+    playerWins = 0;
+    computerWins = 0;
   }
 }
-
-play(Rounds());
